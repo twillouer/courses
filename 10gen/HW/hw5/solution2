@@ -1,0 +1,1 @@
+db.zips.aggregate([{$project:{state:"$state",city:"$city",pop:"$pop"}},{$match:{state:{$in:["CA","NY"]}}},{$group:{_id:{state:"$state",city:"$city"}, tpop:{$sum:"$pop"}}},{$match:{tpop:{$gt:25000}}},{$group:{_id:"1", a:{$avg:"$tpop"}}},{$sort:{tpop:1}}])
